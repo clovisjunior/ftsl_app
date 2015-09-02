@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_add_agenda"
+        android:icon="@drawable/calendar_add"
+        android:title="@string/add_to_agenda"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_del_agenda"
+        android:icon="@drawable/calendar_remove"
+        android:title="@string/remove_to_agenda"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_update"
+        android:icon="@drawable/ic_action_update"
+        android:title="@string/update"
+        app:showAsAction="ifRoom|collapseActionView"/>
+
+</menu>

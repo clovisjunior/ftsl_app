@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="nav_menu_items">
+        <item>Explore</item>
+        <item>My Agenda</item>
+        <item>Map</item>
+        <item>About</item>
+    </string-array>
+
+    <string-array name="event_types_items">
+        <item>All sessions</item>
+        <item>Lecture</item>
+        <item>Workshop</item>
+        <item>Community Meeting</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="event_day_week">
+        <item>wed</item>
+        <item>thu</item>
+        <item>fri</item>
+    </string-array>
+
+</resources>

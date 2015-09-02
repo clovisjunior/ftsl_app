@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <FrameLayout
+            android:id="@+id/frame_header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/action_bar_ftsl"
+                android:id="@+id/view_background"/>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/layout_header">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:text=""
+                    android:id="@+id/event_title"/>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/event_schedule_location"
+                    android:layout_below="@+id/event_title"
+                    android:layout_alignLeft="@+id/event_title"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="16dp"
+                    android:text="" />
+
+            </RelativeLayout>
+
+
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text=""
+            android:id="@+id/event_description"
+            android:layout_below="@+id/frame_header"
+            android:layout_alignLeft="@+id/frame_header"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@+id/event_description"
+            android:layout_alignLeft="@+id/event_description"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/viewRule1"
+            android:visibility="invisible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/txtSpeaker"
+            android:layout_below="@+id/viewRule1"
+            android:layout_alignLeft="@+id/viewRule1"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/action_bar_ftsl" />
+
+
+        <LinearLayout
+            android:id="@+id/speakersList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtSpeaker"
+            android:layout_alignLeft="@+id/txtSpeaker"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@+id/speakersList"
+            android:layout_alignLeft="@+id/speakersList"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="16dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/viewRule2"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/about_event"
+            android:id="@+id/about_event"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/about_event_text"
+            android:id="@+id/about_event_text"
+            android:layout_below="@+id/about_event"
+            android:layout_alignLeft="@+id/about_event"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="italic"
+            android:autoLink="web" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/about_app"
+            android:id="@+id/about_app"
+            android:layout_below="@+id/about_event_text"
+            android:layout_alignLeft="@+id/about_event_text"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/about_app_text"
+            android:id="@+id/about_app_text"
+            android:layout_below="@+id/about_app"
+            android:layout_alignLeft="@+id/about_app"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:textStyle="italic"
+            android:autoLink="email|web" />
+
+    </RelativeLayout>
+</ScrollView>

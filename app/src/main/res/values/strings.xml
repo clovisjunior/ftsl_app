@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FTSL</string>
+    <string name="add">Add</string>
+    <string name="search">Search</string>
+    <string name="update">Update</string>
+
+    <string name="drawer_open">Open drawer navigation</string>
+    <string name="drawer_close">Navigation drawer Close</string>
+
+    <string name="progress_dialog_aguarde">Updating …</string>
+
+    <string name="event_detail_spekears">Speaker</string>
+    <string name="add_to_agenda">Add to Agenda</string>
+    <string name="remove_to_agenda">Remove Agenda</string>
+    <string name="agenda_remove_event">Removed Agenda</string>
+    <string name="agenda_add_event">Added to Agenda</string>
+    <string name="my_agenda">My Agenda</string>
+    <string name="notification_title">Reminder</string>
+    <string name="connection_down">Check your connection</string>
+    <string name="day_1_title">sep 16</string>
+    <string name="day_2_title">sep 17</string>
+    <string name="day_3_title">sep 18</string>
+    <string name="about">About</string>
+    <string name="about_event">About the Event</string>
+    <string name="about_event_text">O Fórum de Tecnologia em Software Livre (FTSL) é um evento anual promovido pelo Serviço
+        Federal de Processamento de Dados (SERPRO). Considerado o maior e mais importante evento de Software Livre de Curitiba
+        e Região tem como propósito a disseminação de novas tecnologias baseadas em Software Livre, bem como, a troca de experiências
+        com as comunidades, universidades e empresas públicas e privadas, por meio de palestras, painéis/mesas-redondas e oficinas/minicursos.
+        \n\n
+        Local, data e sites:
+        \n\n
+        O 7º FTSL acontecerá nos dias 16, 17 e 18 de setembro de 2015 das 09h00min às 21h00min.
+        \n\n
+        O evento será realizado nas dependências físicas do campus central da Universidade Tecnológica Federal do Paraná – UTFPR,
+        sito a Av. Sete de Setembro, 3165 - Rebouças, em Curitiba – PR.
+        \n\n
+        O site oficial do 7º FTSL é: http://www.ftsl.org.br.
+    </string>
+    <string name="about_app">About the App</string>
+    <string name="about_app_text">Developer: \nClóvis Lemes Ferreira Júnior\n\nEmail:\nclovisjunior2009@gmail.com\n\nSource Code: \nhttps://github.com/clovisjunior\n\n\n</string>
+    <string name="server_down">Server not available</string>
+    <string name="map">Map</string>
+
+</resources >

@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '22.0.1'
+    defaultConfig {
+        applicationId 'br.org.ftsl'
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 3
+        versionName "beta"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("../.singing/debug.jks")
+            keyAlias "ftslandroiddebug"
+            storePassword "Ftsl62014"
+            keyPassword "Ftsl62014"
+        }
+        usertest {
+            storeFile file("../.singing/testAlpha.jks")
+            storePassword "Ftsl62014"
+            keyAlias "ftslTestAlpha"
+            keyPassword "Ftsl62014"
+        }
+        release {
+            storeFile file("../.singing/release.jks")
+            storePassword "Ftsl62014"
+            keyAlias "ftslRelease"
+            keyPassword "Ftsl62014"
+        }
+    }
+
+    buildTypes {
+        debug {
+            //applicationIdSuffix ".debug"
+            //versionNameSuffix "-debug"
+        }
+        usertest {
+            //applicationIdSuffix ".usertest"
+            //versionNameSuffix "-usertest"
+            //runProguard false
+            proguardFile getDefaultProguardFile('proguard-android.txt')
+            signingConfig signingConfigs.usertest
+        }
+        release {
+            //runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
+    productFlavors {
+    }
+}
+
+
+dependencies {
+    //compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+}

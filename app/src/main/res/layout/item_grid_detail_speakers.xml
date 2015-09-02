@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/event_speaker"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/event_speaker_resume"
+        android:layout_below="@+id/event_speaker"
+        android:layout_alignLeft="@+id/event_speaker"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="16dp"
+        android:singleLine="false" />
+
+
+</RelativeLayout>
