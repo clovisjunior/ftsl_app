@@ -18,13 +18,13 @@
     </style>
 
 	<style name="LiveoActionBarTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarStyle">@style/LiveoActionBar</item>	    	    
+        <item name="android:actionBarStyle">@style/LiveoActionBar</item>
     </style>
     
     <style name="LiveoActionBar" parent="@style/Widget.AppCompat.ActionBar">
-        <item name="titleTextStyle">@style/Liveo.TitleTextStyle</item>
-        <item name="subtitleTextStyle">@style/Liveo.SubTitleTextStyle</item>               
-        <item name="background">@color/action_bar_ftsl</item>
+        <item name="android:titleTextStyle">@style/Liveo.TitleTextStyle</item>
+        <item name="android:subtitleTextStyle">@style/Liveo.SubTitleTextStyle</item>
+        <item name="android:background">@color/action_bar_ftsl</item>
     </style>
     
     <style name="Liveo.TitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">

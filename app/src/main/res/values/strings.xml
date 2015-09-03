@@ -17,7 +17,7 @@
     <string name="agenda_remove_event">Removed Agenda</string>
     <string name="agenda_add_event">Added to Agenda</string>
     <string name="my_agenda">My Agenda</string>
-    <string name="notification_title">Reminder</string>
+    <string name="notification_title">FTSL - Reminder</string>
     <string name="connection_down">Check your connection</string>
     <string name="day_1_title">sep 16</string>
     <string name="day_2_title">sep 17</string>

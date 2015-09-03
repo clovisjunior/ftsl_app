@@ -7,8 +7,8 @@ android {
         applicationId 'br.org.ftsl'
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 3
-        versionName "beta"
+        versionCode 4
+        versionName "ftsl7"
     }
 
     signingConfigs {
@@ -64,7 +64,7 @@ android {
 
 
 dependencies {
-    //compile 'com.android.support:support-v4:19.+'
+    //compile 'com.android.support:support-v7:22.+'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'

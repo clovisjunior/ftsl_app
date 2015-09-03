@@ -118,6 +118,10 @@ public class ExplorerFragment extends Fragment{
         criarItemGradeFake(1, 5);
         criarItemGradeFake(1, 10);
 
+
+        List<ItemGridModel> agenda = mDatabaseHelper.getAgenda();
+        rescheduleAlarm(agenda);
+
     }
 
     private void criarItemGradeFakePassado(int minutos) {
@@ -126,6 +130,7 @@ public class ExplorerFragment extends Fragment{
 
         //Teste de AlarmManager
         Calendar inicio = Calendar.getInstance();
+        inicio.set(Calendar.DAY_OF_MONTH, inicio.get(Calendar.DAY_OF_MONTH) - 1);
         inicio.set(Calendar.HOUR_OF_DAY, 9);
         inicio.set(Calendar.MINUTE, 5 + minutos);
         inicio.set(Calendar.SECOND, 0);
@@ -166,8 +171,8 @@ public class ExplorerFragment extends Fragment{
         //Teste de AlarmManager
         Calendar inicio = Calendar.getInstance();
         //inicio.set(Calendar.HOUR_OF_DAY, 16);
-        inicio.set(Calendar.DAY_OF_MONTH, dia);
-        inicio.add(Calendar.MINUTE, 5 + minutos);
+        //inicio.set(Calendar.DAY_OF_MONTH, dia);
+        inicio.add(Calendar.MINUTE, 2 + minutos);
         inicio.set(Calendar.SECOND, 0);
 
         Calendar fim = Calendar.getInstance();

@@ -35,7 +35,7 @@ import br.org.ftsl.utils.Constant;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
-    private static final String DATABASE_NAME = "ftsl7.db";
+    private static final String DATABASE_NAME = "ftsl.db";
     private static final int DATABASE_VERSION = 1;
 
     private static String DATABASE_PATH = Environment.getDataDirectory() + "/data/";
@@ -48,7 +48,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION, R.raw.ormlite_config);
         this.mContext = context;
 
-        boolean dbExist = checkDataBase();
+        /*boolean dbExist = checkDataBase();
 
         if (!dbExist) {
             try {
@@ -76,10 +76,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             catch (IOException e) {
                 Log.e(Constant.TAG, "Can't copy database", e);
             }
-        }
+        }*/
     }
 
-    private boolean checkDataBase() {
+    /*private boolean checkDataBase() {
         boolean checkDB;
 
         String path = DATABASE_PATH + mContext.getApplicationContext().getPackageName() + "/databases/" + DATABASE_NAME;;
@@ -89,7 +89,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         Log.i(Constant.TAG, "DB Exist : " + checkDB);
 
         return checkDB;
-    }
+    }*/
 
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
@@ -132,7 +132,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     public RuntimeExceptionDao<AuthorModel, Integer> getAuthorDao() {
         if (mAuthorRuntimeDao == null) {
-            mAuthorRuntimeDao = getRuntimeExceptionDao(AuthorModel.class);
+            try {
+                mAuthorRuntimeDao = getRuntimeExceptionDao(AuthorModel.class);
+            }
+            catch(Exception e){}
         }
         return mAuthorRuntimeDao;
     }
@@ -181,7 +184,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             }
 
             queryBuilder.orderBy("inicio", true);
-            queryBuilder.orderBy("time", true);
             queryBuilder.orderBy("title", true);
 
             List<ItemGridModel> items = where.query();
@@ -205,7 +207,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             where.and().ge("inicio", new Date(System.currentTimeMillis()));
 
             queryBuilder.orderBy("inicio", true);
-            queryBuilder.orderBy("time", true);
             queryBuilder.orderBy("title", true);
 
             List<ItemGridModel> items = where.query();

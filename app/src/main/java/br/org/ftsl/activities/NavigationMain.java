@@ -4,7 +4,7 @@ package br.org.ftsl.activities;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -137,7 +137,7 @@ public class NavigationMain extends ActionBarActivity {
 			super(
 			    mActivity,
 			    mDrawerLayout, 
-  			    R.drawable.ic_action_navigation_drawer, 
+  			    //R.drawable.ic_action_navigation_drawer,
 				R.string.drawer_open,
 				R.string.drawer_close);
 		}
