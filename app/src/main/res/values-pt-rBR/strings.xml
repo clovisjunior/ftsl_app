@@ -19,9 +19,9 @@
     <string name="my_agenda">Minha Agenda</string>
     <string name="notification_title">FTSL - Lembrete</string>
     <string name="connection_down">Verifique sua conexão</string>
-    <string name="day_1_title">16 de set</string>
-    <string name="day_2_title">17 de set</string>
-    <string name="day_3_title">18 de set</string>
+    <string name="day_1_title">31 de ago</string>
+    <string name="day_2_title">1 de set</string>
+    <string name="day_3_title">2 de set</string>
     <string name="about">Sobre</string>
     <string name="about_event">Sobre o Evento</string>
     <string name="about_event_text">O Fórum de Tecnologia em Software Livre (FTSL) é um evento anual promovido pelo Serviço
@@ -31,15 +31,15 @@
         \n\n
         Local, data e sites:
         \n\n
-        O 7º FTSL acontecerá nos dias 16, 17 e 18 de setembro de 2015 das 09h00min às 21h00min.
+        O 8º FTSL acontecerá nos dias 31 de agosto, 1 e 2 de setembro de 2016 das 09h00min às 21h00min.
         \n\n
         O evento será realizado nas dependências físicas do campus central da Universidade Tecnológica Federal do Paraná – UTFPR,
         sito a Av. Sete de Setembro, 3165 - Rebouças, em Curitiba – PR.
         \n\n
-        O site oficial do 7º FTSL é: http://www.ftsl.org.br.
+        O site oficial do 8º FTSL é: http://www.ftsl.org.br.
     </string>
     <string name="about_app">Sobre o Aplicativo</string>
-    <string name="about_app_text">Desenvolvedor: \nClóvis Lemes Ferreira Júnior\n\nEmail:\nclovisjunior2009@gmail.com\n\nCódigo Fonte: \nhttps://github.com/clovisjunior\n\n\n</string>
+    <string name="about_app_text">Desenvolvedor: \nClóvis Lemes Ferreira Júnior\n\nEmail:\nclovisjunior2009@gmail.com\n\nCódigo Fonte: \nhttps://github.com/ftslorgbr/ftsl_app\n\n\n</string>
     <string name="server_down">Servidor não disponível</string>
     <string name="map">Mapa</string>
 

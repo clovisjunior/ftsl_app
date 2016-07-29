@@ -77,20 +77,20 @@ public class Utils {
 
     public static void selectCurrentDay(ViewPager mViewPager) {
         Calendar firstDay = Calendar.getInstance();
-        firstDay.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        firstDay.set(Calendar.YEAR, 2015);
-        firstDay.set(Calendar.DAY_OF_MONTH, 16);
+        firstDay.set(Calendar.MONTH, Calendar.AUGUST);
+        firstDay.set(Calendar.YEAR, 2016);
+        firstDay.set(Calendar.DAY_OF_MONTH, 31);
 
         Calendar secondDay = Calendar.getInstance();
         secondDay.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        secondDay.set(Calendar.YEAR, 2015);
-        secondDay.set(Calendar.DAY_OF_MONTH, 17);
+        secondDay.set(Calendar.YEAR, 2016);
+        secondDay.set(Calendar.DAY_OF_MONTH, 1);
 
 
         Calendar thirdDay = Calendar.getInstance();
         thirdDay.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        thirdDay.set(Calendar.YEAR, 2015);
-        thirdDay.set(Calendar.DAY_OF_MONTH, 18);
+        thirdDay.set(Calendar.YEAR, 2016);
+        thirdDay.set(Calendar.DAY_OF_MONTH, 2);
 
         List<Calendar> days = new ArrayList<Calendar>();
         days.add(firstDay);
@@ -145,9 +145,9 @@ public class Utils {
     public static Date getTime(Integer date, Integer time, boolean isInicio){
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        calendar.set(Calendar.YEAR, 2015);
-        calendar.set(Calendar.DAY_OF_MONTH, date + 15);
+        calendar.set(Calendar.MONTH, Calendar.AUGUST);
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.DAY_OF_MONTH, date + 30);
 
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -155,23 +155,23 @@ public class Utils {
         //calendar.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
         //calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        if(time < 13) {
+        if(time < 20) {
             convertTimeToHours(calendar, time, isInicio);
         }
         else{
             Integer hour = 0;
 
             switch(time) {
-                case 13: hour = 9; break;
-                case 14: hour = 14; break;
-                case 15: hour = 18; break;
-                case 16: hour = 9; break;
+                case 20: hour = 9; break;
+                case 21: hour = 14; break;
+                case 22: hour = 19; break;
+                case 23: hour = 9; break;
             }
 
             hour = isInicio ? hour: hour + 3;
 
-            if(time == 16 && !isInicio){
-                hour = 21;
+            if(time == 22 && !isInicio){
+                hour = 22;
             }
 
             calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -197,16 +197,17 @@ public class Utils {
             case 10: hour = 18; break;
             case 11: hour = 19; break;
             case 12: hour = 20; break;
+            case 13: hour = 21; break;
         }
 
         hour = isInicio == Boolean.TRUE ? hour : hour+1;
 
         calendar.set(Calendar.HOUR_OF_DAY, hour);
 
-        // Adicionar 30 minutos
+        /*// Adicionar 30 minutos
         if(time == 8){
             calendar.set(Calendar.MINUTE, 30);
-        }
+        }*/
 
     }
 
@@ -214,23 +215,23 @@ public class Utils {
         // Oficina
         if(type == 2){
             switch (place) {
-                case 8 : return "Laboratório 1";
-                case 9 : return "Laboratório 2";
-                case 10 : return "Laboratório 3";
-                case 11 : return "Laboratório 4";
-                case 12 : return "Laboratório 5";
+                case 8 : return "Q201";
+                case 9 : return "Q202";
+                case 10 : return "Q204";
+                case 11 : return "Q205";
+                case 12 : return "Q210";
             }
         }
         else{
             switch (place) {
                 case 1 : return "Auditório";
                 case 2 : return "Mini-Auditório";
-                case 3 : return "Sala 1";
-                case 4 : return "Sala 2";
-                case 5 : return "Sala 3";
-                case 6 : return "Sala 4";
-                case 7 : return "Sala 5";
-                case 13 : return "Sala 6";
+                case 3 : return "Q-004";
+                case 4 : return "Q-101";
+                case 5 : return "Q-102";
+                case 6 : return "Q-103";
+                case 7 : return "Q-105";
+                case 13 : return "Q-106";
             }
         }
 
