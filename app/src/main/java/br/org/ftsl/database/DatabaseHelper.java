@@ -36,7 +36,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 
     private static final String DATABASE_NAME = "ftsl.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 5;
 
     private static String DATABASE_PATH = Environment.getDataDirectory() + "/data/";
 

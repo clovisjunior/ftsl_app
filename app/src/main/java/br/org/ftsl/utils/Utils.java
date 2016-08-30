@@ -191,6 +191,7 @@ public class Utils {
             case 4 : hour = 12; break;
             case 5 : hour = 13; break;
             case 6 : hour = 14; break;
+
             case 7 : hour = 15; break;
             case 8 : hour = 16; break;
             case 9 : hour = 17; break;
@@ -215,11 +216,14 @@ public class Utils {
         // Oficina
         if(type == 2){
             switch (place) {
-                case 8 : return "Q201";
-                case 9 : return "Q202";
-                case 10 : return "Q204";
-                case 11 : return "Q205";
-                case 12 : return "Q210";
+                case 9 : return "A301";
+                case 10 : return "B106";
+                case 11 : return "B107";
+                case 12 : return "B108";
+                case 13 : return "B109";
+                case 14 : return "B201";
+                case 15 : return "B202";
+                case 16 : return "B301";
             }
         }
         else{
@@ -231,7 +235,8 @@ public class Utils {
                 case 5 : return "Q-102";
                 case 6 : return "Q-103";
                 case 7 : return "Q-105";
-                case 13 : return "Q-106";
+                case 8 : return "Q-201";
+
             }
         }
 

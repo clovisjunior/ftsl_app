@@ -7,7 +7,7 @@ android {
         applicationId 'br.org.ftsl'
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 5
+        versionCode 9
         versionName "ftsl8"
     }
 
