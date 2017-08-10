@@ -2,7 +2,6 @@ package br.org.ftsl.adapter;
 
 import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,15 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TimeZone;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import br.org.ftsl.model.AuthorModel;
 import br.org.ftsl.model.ItemGridModel;
+import br.org.ftsl.model.TypeModel;
 import br.org.ftsl.navigation.R;
 import br.org.ftsl.utils.Utils;
 
@@ -35,6 +36,7 @@ public class ItemGridAdapter extends BaseAdapter implements Filterable{
     private List<ItemGridModel> mItems;
     private Boolean mIsAgenda;
     private Pattern mPattern;
+    private Map<Integer, String> mTypes;
     private Integer mItemsCount;
 
     static class ViewHolder {
@@ -46,13 +48,14 @@ public class ItemGridAdapter extends BaseAdapter implements Filterable{
 
     }
 
-    public ItemGridAdapter(Context context, List<ItemGridModel> items, Boolean isAgenda){
+    public ItemGridAdapter(Context context, List<ItemGridModel> items, Boolean isAgenda, Map<Integer, String> types){
         this.mContext = context;
         this.mItemsAll = items;
         this.mIsAgenda = isAgenda;
         this.mPattern = Pattern.compile("");
         this.mItemsCount = items.size();
-        this.mItems = new ArrayList<ItemGridModel>(items);
+        this.mItems = new ArrayList<>(items);
+        this.mTypes = new HashMap<>(types);
     }
 
     public List<ItemGridModel> getItemsAll(){
@@ -96,7 +99,10 @@ public class ItemGridAdapter extends BaseAdapter implements Filterable{
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
         holder.txtTitle.setText(Html.fromHtml(item.getTitle()).toString());
-        holder.txtSchedule.setText(format.format(item.getInicio()) + " - " + format.format(item.getFim()) + " [" + mContext.getResources().getStringArray(R.array.event_types_items)[item.getType()] + "]");
+        if(item.getStart() != null) {
+
+            holder.txtSchedule.setText(format.format(item.getStart()) + " - " + format.format(item.getEnd()) + " [" + mTypes.get(item.getType()) + "]");
+        }
 
         String authors;
         AuthorModel author = item.getAuthor();
@@ -104,18 +110,18 @@ public class ItemGridAdapter extends BaseAdapter implements Filterable{
         authors = author.getName();
 
         if("admin".equals(authors)){
-            authors = "Organização";
+            authors = mContext.getResources().getString(R.string.author_organization);
         }
 
         holder.txtAuthor.setText(authors);
 
         holder.imgCalendar.setVisibility(View.INVISIBLE);
-        if(item.getAssistir() && mIsAgenda == Boolean.FALSE){
+        if(item.getIsWatch() && mIsAgenda == Boolean.FALSE){
             holder.imgCalendar.setVisibility(View.VISIBLE);
         }
 
         convertView.setBackgroundColor(convertView.getResources().getColor(R.color.transparent));
-        if(item.getFim().before(new Date(System.currentTimeMillis()))){
+        if(item.getEnd().before(new Date(System.currentTimeMillis()))){
             convertView.setBackgroundColor(mContext.getResources().getColor(R.color.event_past));
         }
 

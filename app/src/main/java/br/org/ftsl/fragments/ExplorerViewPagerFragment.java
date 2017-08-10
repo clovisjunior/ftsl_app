@@ -15,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import br.org.ftsl.adapter.ItemGridAdapter;
 import br.org.ftsl.adapter.ViewPagerAdapter;
+import br.org.ftsl.database.DatabaseHelper;
+import br.org.ftsl.model.DayModel;
 import br.org.ftsl.navigation.R;
 import br.org.ftsl.sliding.SamplePagerItem;
 import br.org.ftsl.sliding.SlidingTabLayout;
@@ -34,10 +38,13 @@ public class ExplorerViewPagerFragment extends Fragment {
     private ItemGridViewPagerFragment[] mFragments;
     private SlidingTabLayout mSlidingTabLayout;
     private boolean mSearchCheck;
+    private DatabaseHelper mDatabaseHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mDatabaseHelper = new DatabaseHelper(getActivity().getApplicationContext());
 
         Integer sessionType = 0;
 
@@ -51,9 +58,12 @@ public class ExplorerViewPagerFragment extends Fragment {
                 ItemGridViewPagerFragment.newInstance(3, sessionType)
         };
 
-        mTabs.add(new SamplePagerItem(0, getString(R.string.day_1_title), getResources().getColor(Utils.colors[0]), Color.GRAY, mFragments));
-        mTabs.add(new SamplePagerItem(1, getString(R.string.day_2_title), getResources().getColor(Utils.colors[0]), Color.GRAY, mFragments));
-        mTabs.add(new SamplePagerItem(2, getString(R.string.day_3_title), getResources().getColor(Utils.colors[0]), Color.GRAY, mFragments));
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd MMM");
+        Integer position = 0;
+        for(DayModel day : mDatabaseHelper.getDayDao().queryForAll()) {
+            mTabs.add(new SamplePagerItem(position, dayFormat.format(day.getDay()), getResources().getColor(Utils.colors[0]), Color.GRAY, mFragments));
+            position++;
+        }
 
     }
 
@@ -84,7 +94,14 @@ public class ExplorerViewPagerFragment extends Fragment {
         mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.white));
         mSlidingTabLayout.setViewPager(mViewPager);
 
-        Utils.selectCurrentDay(mViewPager);
+        List<Calendar> days = new ArrayList<>();
+        for(DayModel day : mDatabaseHelper.getDayDao().queryForAll()) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(day.getDay());
+            days.add(calendar);
+        }
+
+        Utils.selectCurrentDay(days, mViewPager);
     }
 
     @Override

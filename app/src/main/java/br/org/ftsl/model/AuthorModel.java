@@ -15,7 +15,7 @@ import java.util.Collection;
 @DatabaseTable(tableName = "author")
 public class AuthorModel implements Serializable {
 
-    @DatabaseField(generatedId = false, id = true)
+    @DatabaseField(id = true)
     private Integer id;
 
     @DatabaseField

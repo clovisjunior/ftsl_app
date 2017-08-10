@@ -10,7 +10,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 import br.org.ftsl.activities.ItemGridDetail;
 import br.org.ftsl.model.ItemGridModel;
@@ -29,7 +28,7 @@ public class AgendaBroadcastReceiver extends BroadcastReceiver {
 
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-        String text = format.format(itemGrade.getInicio()) + " - " + itemGrade.getTitle();
+        String text = format.format(itemGrade.getStart()) + " - " + itemGrade.getTitle();
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                                                 .setContentTitle(context.getString(R.string.notification_title))

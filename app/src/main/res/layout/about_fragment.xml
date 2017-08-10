@@ -20,7 +20,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/about_event_text"
             android:id="@+id/about_event_text"
             android:layout_below="@+id/about_event"
             android:layout_alignLeft="@+id/about_event"

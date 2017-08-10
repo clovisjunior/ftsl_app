@@ -10,16 +10,15 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.org.ftsl.activities.ItemGridDetail;
 import br.org.ftsl.adapter.ItemGridAdapter;
 import br.org.ftsl.database.DatabaseHelper;
 import br.org.ftsl.model.ItemGridModel;
+import br.org.ftsl.model.TypeModel;
 import br.org.ftsl.navigation.R;
 import br.org.ftsl.utils.Constant;
 
@@ -77,7 +76,12 @@ public class ItemAgendaViewPagerFragment extends Fragment{
 
             List<ItemGridModel> items = mDatabaseHelper.getItemsGrid(mDay, 0, true);
 
-            ItemGridAdapter adapter = new ItemGridAdapter(getActivity().getApplicationContext(), items, true);
+            Map<Integer, String> types = new HashMap<>();
+            for(TypeModel type : mDatabaseHelper.getTypeDao().queryForAll()) {
+                types.put(type.getId(), type.getType());
+            }
+
+            ItemGridAdapter adapter = new ItemGridAdapter(getActivity().getApplicationContext(), items, true, types);
             mListViewItems.setAdapter(adapter);
 
         }

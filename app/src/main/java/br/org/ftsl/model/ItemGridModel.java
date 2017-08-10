@@ -1,13 +1,10 @@
 package br.org.ftsl.model;
 
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import br.org.ftsl.utils.Utils;
 
 @DatabaseTable(tableName = "grid")
 public class ItemGridModel implements Serializable{
@@ -46,20 +43,16 @@ public class ItemGridModel implements Serializable{
     private String curriculum;
 
     @DatabaseField
-    private Date inicio;
+    private Date start;
 
     @DatabaseField
-    private Date fim;
+    private Date end;
 
     @DatabaseField
-    private Boolean assistir = Boolean.FALSE;
+    private Boolean isWatch = Boolean.FALSE;
 
     public Integer getPlace() {
         return place;
-    }
-
-    public String getPlaceDescription(){
-        return Utils.getPlace(getType(), getPlace());
     }
 
     public void setPlace(Integer place) {
@@ -130,28 +123,28 @@ public class ItemGridModel implements Serializable{
         this.author = author;
     }
 
-    public Boolean getAssistir() {
-        return assistir;
+    public Boolean getIsWatch() {
+        return isWatch;
     }
 
-    public void setAssistir(Boolean assistir) {
-        this.assistir = assistir;
+    public void setIsWatch(Boolean isWatch) {
+        this.isWatch = isWatch;
     }
 
-    public Date getFim() {
-        return fim;
+    public Date getEnd() {
+        return end;
     }
 
-    public void setFim(Date fim) {
-        this.fim = fim;
+    public void setEnd(Date end) {
+        this.end = end;
     }
 
-    public Date getInicio() {
-        return inicio;
+    public Date getStart() {
+        return start;
     }
 
-    public void setInicio(Date inicio) {
-        this.inicio = inicio;
+    public void setStart(Date start) {
+        this.start = start;
     }
 
     public Integer getAuthorId() {
@@ -189,7 +182,7 @@ public class ItemGridModel implements Serializable{
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", author=" + author +
-                ", assistir=" + assistir +
+                ", isWatch=" + isWatch +
                 '}';
     }
 

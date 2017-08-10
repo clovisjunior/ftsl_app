@@ -9,11 +9,9 @@ import android.net.NetworkInfo;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,7 +45,7 @@ public class Utils {
     }
 
     public static void setAlarm(Context context, ItemGridModel itemGrade){
-        if(itemGrade.getInicio().after(new Date(System.currentTimeMillis()))) {
+        if(itemGrade.getStart().after(new Date(System.currentTimeMillis()))) {
 
             //Register
             Intent intent = new Intent(Constant.AGENDA_BROADCAST_RECEIVER);
@@ -56,7 +54,7 @@ public class Utils {
 
             AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(itemGrade.getInicio().getTime());
+            c.setTimeInMillis(itemGrade.getStart().getTime());
             c.add(Calendar.MINUTE, -10);
             c.set(Calendar.SECOND, 0);
 
@@ -75,27 +73,7 @@ public class Utils {
         alarm.cancel(p);
     }
 
-    public static void selectCurrentDay(ViewPager mViewPager) {
-        Calendar firstDay = Calendar.getInstance();
-        firstDay.set(Calendar.MONTH, Calendar.AUGUST);
-        firstDay.set(Calendar.YEAR, 2016);
-        firstDay.set(Calendar.DAY_OF_MONTH, 31);
-
-        Calendar secondDay = Calendar.getInstance();
-        secondDay.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        secondDay.set(Calendar.YEAR, 2016);
-        secondDay.set(Calendar.DAY_OF_MONTH, 1);
-
-
-        Calendar thirdDay = Calendar.getInstance();
-        thirdDay.set(Calendar.MONTH, Calendar.SEPTEMBER);
-        thirdDay.set(Calendar.YEAR, 2016);
-        thirdDay.set(Calendar.DAY_OF_MONTH, 2);
-
-        List<Calendar> days = new ArrayList<Calendar>();
-        days.add(firstDay);
-        days.add(secondDay);
-        days.add(thirdDay);
+    public static void selectCurrentDay(List<Calendar> days, ViewPager mViewPager) {
 
         Calendar today = Calendar.getInstance();
         today.setTimeInMillis(System.currentTimeMillis());
@@ -142,21 +120,13 @@ public class Utils {
         return "";
     }
 
-    public static Date getTime(Integer date, Integer time, boolean isInicio){
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, Calendar.AUGUST);
-        calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.DAY_OF_MONTH, date + 30);
-
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+    public static Date getTime(Calendar calendar, Integer time, boolean isStart){
 
         //calendar.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
         //calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         if(time < 20) {
-            convertTimeToHours(calendar, time, isInicio);
+            convertTimeToHours(calendar, time, isStart);
         }
         else{
             Integer hour = 0;
@@ -168,9 +138,9 @@ public class Utils {
                 case 23: hour = 9; break;
             }
 
-            hour = isInicio ? hour: hour + 3;
+            hour = isStart ? hour: hour + 3;
 
-            if(time == 22 && !isInicio){
+            if(time == 22 && !isStart){
                 hour = 22;
             }
 
@@ -180,7 +150,7 @@ public class Utils {
         return calendar.getTime();
     }
 
-    private static void convertTimeToHours(Calendar calendar, Integer time, Boolean isInicio) {
+    private static void convertTimeToHours(Calendar calendar, Integer time, Boolean isStart) {
 
         Integer hour = 0;
 
@@ -201,7 +171,7 @@ public class Utils {
             case 13: hour = 21; break;
         }
 
-        hour = isInicio == Boolean.TRUE ? hour : hour+1;
+        hour = isStart == Boolean.TRUE ? hour : hour+1;
 
         calendar.set(Calendar.HOUR_OF_DAY, hour);
 
@@ -212,34 +182,4 @@ public class Utils {
 
     }
 
-    public static String getPlace(Integer type, Integer place){
-        // Oficina
-        if(type == 2){
-            switch (place) {
-                case 9 : return "A301";
-                case 10 : return "B106";
-                case 11 : return "B107";
-                case 12 : return "B108";
-                case 13 : return "B109";
-                case 14 : return "B201";
-                case 15 : return "B202";
-                case 16 : return "B301";
-            }
-        }
-        else{
-            switch (place) {
-                case 1 : return "Auditório";
-                case 2 : return "Mini-Auditório";
-                case 3 : return "Q-004";
-                case 4 : return "Q-101";
-                case 5 : return "Q-102";
-                case 6 : return "Q-103";
-                case 7 : return "Q-105";
-                case 8 : return "Q-201";
-
-            }
-        }
-
-        return "";
-    }
 }

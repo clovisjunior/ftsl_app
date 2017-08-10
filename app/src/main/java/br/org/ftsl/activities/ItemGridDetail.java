@@ -1,9 +1,6 @@
 package br.org.ftsl.activities;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
@@ -14,16 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 import br.org.ftsl.database.DatabaseHelper;
-import br.org.ftsl.model.AuthorModel;
+import br.org.ftsl.model.DayModel;
 import br.org.ftsl.model.ItemGridModel;
 import br.org.ftsl.navigation.R;
 import br.org.ftsl.utils.Constant;
@@ -76,17 +68,23 @@ public class ItemGridDetail extends ActionBarActivity {
 
         StringBuilder sb = new StringBuilder();
 
-        String[] eventDays = getResources().getStringArray(R.array.event_day_week);
+        DayModel day = mDatabaseHelper.getDayDao().queryForId(mItemGrid.getDate());
 
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-        sb.append(eventDays[mItemGrid.getDate() - 1]);
-        sb.append(" ");
-        sb.append(format.format(mItemGrid.getInicio()));
+        sb.append(dayFormat.format(day.getDay()));
+        sb.append(" às ");
+        sb.append(format.format(mItemGrid.getStart()));
         sb.append(" - ");
-        sb.append(format.format(mItemGrid.getFim()));
-        sb.append(" em ");
-        sb.append(mItemGrid.getPlaceDescription());
+        sb.append(format.format(mItemGrid.getEnd()));
+
+        String placeDescription = mDatabaseHelper.getPlaceDescription(mItemGrid);
+
+        if(!"".equals(placeDescription)) {
+            sb.append(" em ");
+            sb.append(mDatabaseHelper.getPlaceDescription(mItemGrid));
+        }
 
         mTxtTitle.setText(Html.fromHtml(mItemGrid.getTitle()).toString());
         mTxtScheduleLocation.setText(sb.toString());
@@ -125,12 +123,12 @@ public class ItemGridDetail extends ActionBarActivity {
 
         getMenuInflater().inflate(R.menu.menu_detail, menu);
 
-        if(mItemGrid.getInicio().before(new Date(System.currentTimeMillis()))) {
+        if(mItemGrid.getStart().before(new Date(System.currentTimeMillis()))) {
             menu.findItem(R.id.menu_del_agenda).setVisible(false);
             menu.findItem(R.id.menu_add_agenda).setVisible(false);
         }
         else{
-            if (mItemGrid.getAssistir()) {
+            if (mItemGrid.getIsWatch()) {
                 menu.findItem(R.id.menu_del_agenda).setVisible(true);
                 menu.findItem(R.id.menu_add_agenda).setVisible(false);
             } else {
@@ -166,7 +164,7 @@ public class ItemGridDetail extends ActionBarActivity {
     }
 
     private void removeAgenda() {
-        mItemGrid.setAssistir(Boolean.FALSE);
+        mItemGrid.setIsWatch(Boolean.FALSE);
         mDatabaseHelper.getItemGridDao().update(mItemGrid);
         Toast.makeText(this, getString(R.string.agenda_remove_event), Toast.LENGTH_LONG).show();
         invalidateOptionsMenu();
@@ -174,7 +172,7 @@ public class ItemGridDetail extends ActionBarActivity {
 
     private void addAgenda() {
 
-        mItemGrid.setAssistir(Boolean.TRUE);
+        mItemGrid.setIsWatch(Boolean.TRUE);
         mDatabaseHelper.getItemGridDao().update(mItemGrid);
         Toast.makeText(this, getString(R.string.agenda_add_event), Toast.LENGTH_LONG).show();
         invalidateOptionsMenu();
