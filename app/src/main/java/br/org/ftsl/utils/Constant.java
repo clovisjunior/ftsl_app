@@ -8,9 +8,8 @@ public class Constant {
 
     public static final String AGENDA_BROADCAST_RECEIVER = "FTSL_MY_AGENDA_TIMER";
 
-    public static final String TAG = "FTSL9";
+    public static final String TAG = "FTSL";
 
-    public static final String URL_SERVICE = "http://sistema.ftsl.org.br/ftsl9/grade/mobile.php";
-    public static final String URL_SERVICE_CONFIGURATION = "http://ftsl.org.br/9/app_config.json";
+    public static final String URL_SERVICE_CONFIGURATION = "http://ftsl.org.br/config_grade.json";
 
 }

@@ -84,7 +84,7 @@ public class ItemGridViewPagerFragment extends Fragment{
             ItemGridModel item = items.get(i);
 
             if(item.getStart() != null && item.getStart().after(new Date(System.currentTimeMillis()))){
-                mListViewItems.setSelectionFromTop(i, 0);
+                mListViewItems.setSelectionFromTop(i, 90);
                 break;
             }
         }

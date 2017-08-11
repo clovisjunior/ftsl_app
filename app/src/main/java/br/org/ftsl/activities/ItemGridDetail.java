@@ -85,6 +85,9 @@ public class ItemGridDetail extends ActionBarActivity {
             sb.append(" em ");
             sb.append(mDatabaseHelper.getPlaceDescription(mItemGrid));
         }
+        else{
+            sb.append(" - a definir");
+        }
 
         mTxtTitle.setText(Html.fromHtml(mItemGrid.getTitle()).toString());
         mTxtScheduleLocation.setText(sb.toString());

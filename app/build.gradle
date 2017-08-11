@@ -7,8 +7,8 @@ android {
         applicationId 'br.org.ftsl'
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 9
-        versionName "ftsl8"
+        versionCode 10
+        versionName "ftsl9"
     }
 
     signingConfigs {
@@ -69,6 +69,5 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.2'
     compile 'com.j256.ormlite:ormlite-android:4.48'
-    compile group: 'com.caverock', name: 'androidsvg', version: '1.2.1'
 
 }

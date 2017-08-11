@@ -32,10 +32,13 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import br.org.ftsl.database.DatabaseHelper;
 import br.org.ftsl.model.AboutModel;
+import br.org.ftsl.model.AppConfiguration;
 import br.org.ftsl.model.AuthorModel;
 import br.org.ftsl.model.ClassRoomModel;
 import br.org.ftsl.model.Configuration;
@@ -73,7 +76,7 @@ public class ExplorerFragment extends Fragment{
 
         setHasOptionsMenu(true);
 
-        //generateFakes();
+//        generateFakes();
     }
 
     private void makeActionBar() {
@@ -186,10 +189,12 @@ public class ExplorerFragment extends Fragment{
 
         private ProgressDialog mProgressDialog;
         private Context mContext;
+        private String mGridUrl;
 
-        public GridTask(Context context){
+        public GridTask(Context context, String gridUrl){
             this.mProgressDialog = new ProgressDialog(context);
             this.mContext = context;
+            this.mGridUrl = gridUrl;
         }
 
         @Override
@@ -212,11 +217,9 @@ public class ExplorerFragment extends Fragment{
                 httpRequestFactory.setReadTimeout(10 * 1000);
                 restTemplate.setRequestFactory(httpRequestFactory);
 
-                String url = Constant.URL_SERVICE;
-
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                return restTemplate.getForObject(url, ItemGridModel[].class);
+                return restTemplate.getForObject(mGridUrl, ItemGridModel[].class);
             }
             catch(ResourceAccessException e){
                 Log.e(Constant.TAG, "Error update grid", e);
@@ -299,7 +302,6 @@ public class ExplorerFragment extends Fragment{
                 String configString = restTemplate.getForObject(url, String.class);
 
                 ObjectMapper mapper = new ObjectMapper();
-                mapper.setDateFormat(new SimpleDateFormat(("dd/MM/yyyy")));
 
                 return mapper.readValue(configString, Configuration.class);
             }
@@ -314,6 +316,77 @@ public class ExplorerFragment extends Fragment{
 
         @Override
         protected void onPostExecute(Configuration result) {
+
+            if(result != null) {
+
+            }
+            else{
+                Toast.makeText(mContext, getString(R.string.server_down), Toast.LENGTH_LONG).show();
+            }
+
+            if(mProgressDialog.isShowing()){
+                mProgressDialog.dismiss();
+            }
+
+            if(result != null) {
+                new AppConfigurationTask(getActivity(), result).execute();
+            }
+
+        }
+    }
+
+    private class AppConfigurationTask extends AsyncTask<Integer, Void, AppConfiguration> {
+
+        private ProgressDialog mProgressDialog;
+        private Context mContext;
+        private Configuration mConfiguration;
+
+        public AppConfigurationTask(Context context, Configuration configuration){
+            this.mProgressDialog = new ProgressDialog(context);
+            this.mContext = context;
+            this.mConfiguration = configuration;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog.setMessage(getString(R.string.progress_dialog_waiting_configuration));
+            mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected AppConfiguration doInBackground(Integer... args) {
+
+            try {
+
+                RestTemplate restTemplate = new RestTemplate();
+
+                HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+                httpRequestFactory.setConnectTimeout(10 * 1000);
+                httpRequestFactory.setReadTimeout(10 * 1000);
+
+                restTemplate.setRequestFactory(httpRequestFactory);
+
+                restTemplate.getMessageConverters().add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
+                String configString = restTemplate.getForObject(mConfiguration.getConfig(), String.class);
+
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.setDateFormat(new SimpleDateFormat(("dd/MM/yyyy")));
+
+                return mapper.readValue(configString, AppConfiguration.class);
+            }
+            catch(ResourceAccessException e){
+                Log.e(Constant.TAG, "Error update configuration", e);
+            }
+            catch(Exception e){
+                Log.e(Constant.TAG, "Error update configuration", e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(AppConfiguration result) {
 
             if(result != null) {
 
@@ -377,22 +450,22 @@ public class ExplorerFragment extends Fragment{
             }
 
             if(result != null) {
-                new GridTask(getActivity()).execute();
+                new GridTask(getActivity(), mConfiguration.getPath()).execute();
             }
 
         }
     }
 
-    /*private void generateFakes(){
-        criarItemGradeFakePassado(10);
-        criarItemGradeFakePassado(20);
-        criarItemGradeFakePassado(30);
-        criarItemGradeFakePassado(40);
-        criarItemGradeFakePassado(50);
+    private void generateFakes(){
+        createItemGradeFakePass(10);
+        createItemGradeFakePass(20);
+        createItemGradeFakePass(30);
+        createItemGradeFakePass(40);
+        createItemGradeFakePass(50);
 
-        criarItemGradeFake(1, 0);
-        criarItemGradeFake(1, 5);
-        criarItemGradeFake(1, 10);
+        createItemGradeFake(1, 10);
+        createItemGradeFake(1, 15);
+        createItemGradeFake(1, 20);
 
 
         List<ItemGridModel> agenda = mDatabaseHelper.getAgenda();
@@ -400,30 +473,30 @@ public class ExplorerFragment extends Fragment{
 
     }
 
-    private void criarItemGradeFakePassado(int minutos) {
+    private void createItemGradeFakePass(int minutes) {
 
         String titulo = "Evento de Teste Passado - ";
 
         //Teste de AlarmManager
-        Calendar inicio = Calendar.getInstance();
-        inicio.set(Calendar.DAY_OF_MONTH, inicio.get(Calendar.DAY_OF_MONTH) - 1);
-        inicio.set(Calendar.HOUR_OF_DAY, 9);
-        inicio.set(Calendar.MINUTE, 5 + minutos);
-        inicio.set(Calendar.SECOND, 0);
+        Calendar start = Calendar.getInstance();
+        start.set(Calendar.DAY_OF_MONTH, start.get(Calendar.DAY_OF_MONTH) - 1);
+        start.set(Calendar.HOUR_OF_DAY, 9);
+        start.set(Calendar.MINUTE, 5 + minutes);
+        start.set(Calendar.SECOND, 0);
 
         Calendar fim = Calendar.getInstance();
-        fim.setTimeInMillis(inicio.getTimeInMillis());
+        fim.setTimeInMillis(start.getTimeInMillis());
         fim.add(Calendar.HOUR_OF_DAY, 1);
 
         ItemGridModel itemGrade = new ItemGridModel();
-        itemGrade.setStart(new Date(inicio.getTimeInMillis()));
+        itemGrade.setStart(new Date(start.getTimeInMillis()));
         itemGrade.setEnd(new Date(fim.getTimeInMillis()));
-        //itemGrade.setIsAssistir(true);
+        itemGrade.setIsWatch(true);
         itemGrade.setPid(140);
-        itemGrade.setTimes(1);
+        itemGrade.setTime(1);
         itemGrade.setDate(1);
         itemGrade.setPlace(1);
-        itemGrade.setTitle(titulo + minutos);
+        itemGrade.setTitle(titulo + minutes);
         itemGrade.setType(1);
 
         AuthorModel author = new AuthorModel();
@@ -433,40 +506,39 @@ public class ExplorerFragment extends Fragment{
 
         itemGrade.setAuthor(author);
 
-        List<ItemGridModel> t = mDatabaseHelper.getItemGridDao().queryForEq("title", titulo + minutos);
+        List<ItemGridModel> t = mDatabaseHelper.getItemGridDao().queryForEq("title", titulo + minutes);
 
         if(t == null || t.isEmpty()) {
             mDatabaseHelper.createItemGrid(itemGrade);
         }
     }
 
-    private void criarItemGradeFake(int dia, int minutos) {
+    private void createItemGradeFake(int day, int minute) {
 
         String titulo = "Evento de Teste do Lembrete - ";
 
         //Teste de AlarmManager
-        Calendar inicio = Calendar.getInstance();
-        //inicio.set(Calendar.HOUR_OF_DAY, 16);
-        //inicio.set(Calendar.DAY_OF_MONTH, dia);
-        inicio.add(Calendar.MINUTE, 2 + minutos);
-        inicio.set(Calendar.SECOND, 0);
+        Calendar start = Calendar.getInstance();
+        //start.set(Calendar.HOUR_OF_DAY, 15);
+        //start.set(Calendar.DAY_OF_MONTH, day);
+        start.add(Calendar.MINUTE, 2 + minute);
+        start.set(Calendar.SECOND, 0);
 
-        Calendar fim = Calendar.getInstance();
-        fim.setTimeInMillis(inicio.getTimeInMillis());
-        fim.add(Calendar.HOUR_OF_DAY, 1);
+        Calendar end = Calendar.getInstance();
+        end.setTimeInMillis(start.getTimeInMillis());
+        end.add(Calendar.HOUR_OF_DAY, 1);
 
         ItemGridModel itemGrade = new ItemGridModel();
-        itemGrade.setStart(new Date(inicio.getTimeInMillis()));
-        itemGrade.setEnd(new Date(fim.getTimeInMillis()));
+        itemGrade.setStart(new Date(start.getTimeInMillis()));
+        itemGrade.setEnd(new Date(end.getTimeInMillis()));
 
         itemGrade.setIsWatch(true);
         itemGrade.setPid(140);
-        itemGrade.setTimes(1);
+        itemGrade.setTime(1);
         itemGrade.setDate(1);
         itemGrade.setPlace(1);
-        itemGrade.setTitle(titulo + minutos);
+        itemGrade.setTitle(titulo + minute);
         itemGrade.setType(1);
-
 
         AuthorModel author = new AuthorModel();
         author.setCurriculum("Biografia");
@@ -475,11 +547,11 @@ public class ExplorerFragment extends Fragment{
 
         itemGrade.setAuthor(author);
 
-        List<ItemGridModel> t = mDatabaseHelper.getItemGridDao().queryForEq("title", titulo + minutos);
+        List<ItemGridModel> t = mDatabaseHelper.getItemGridDao().queryForEq("title", titulo + minute);
 
         if(t == null || t.isEmpty()) {
             mDatabaseHelper.createItemGrid(itemGrade);
         }
-    }*/
+    }
 
 }
